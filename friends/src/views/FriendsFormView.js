@@ -43,8 +43,8 @@ class FriendsFormView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  friendsarray: state.listReducer.friends,
-  updatingId: state.formReducer.updatingId
+  friendsarray: state.list.friends,
+  updatingId: state.list.updatingId
   
 });
 export default connect(

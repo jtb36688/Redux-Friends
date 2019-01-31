@@ -26,7 +26,7 @@ class FriendsListView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  friendsarray: state.listReducer.friends
+  friendsarray: state.list.friends
 });
 
 export default connect(
