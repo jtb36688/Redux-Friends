@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from 'reactstrap'
 
 const FriendsForm = props => {
   const renderAge = () => {
@@ -10,8 +9,13 @@ const FriendsForm = props => {
     return tagsarray;
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    {!Object.keys(props.newfriend).includes('') && props.addNewFriend}
+  }
+
   return (
-    <form onSubmit={props.addNewFriend}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <input
       value={props.newfriend.name}
       type='text'
@@ -30,7 +34,7 @@ const FriendsForm = props => {
       placeholder='Friend Email..'
       onChange={props.handleChanges}
       />
-      <Button color='primary' type="submit">Add New Friend</Button>
+      <button color='primary' type="submit">Add New Friend</button>
     </form>
   );
 };
