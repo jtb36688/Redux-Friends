@@ -11,7 +11,12 @@ const FriendsForm = props => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    {!Object.keys(props.newfriend).includes('') && props.addNewFriend}
+    {!Object.keys(props.newfriend).includes('') && 
+    {}
+    props.addNewFriend
+  
+  }
+    this.props.history.push("/")
   }
 
   return (

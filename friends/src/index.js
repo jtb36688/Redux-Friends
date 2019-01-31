@@ -11,16 +11,8 @@ import rootReducer from "./reducers";
 const store = createStore(rootReducer, applyMiddleware(logger, thunk))
 
 class App extends Component {
-  state = {
-    updatingId: ""
-  };
 
-  routeUpdate = id => {
-    this.setState({
-      updatingId: `${id}`
-    })
-    this.props.history.push("/modifylist/");
-  }
+
 
   render() {
     return (
@@ -35,7 +27,6 @@ class App extends Component {
                 {...props}
                 newfriend={this.state.newfriend}
                 handleChanges={this.handleChanges}
-                routeUpdate={this.routeUpdate}
               />
             </div>
           )}
@@ -45,12 +36,11 @@ class App extends Component {
           render={props => (
             <div>
               <NavLink to="/">Return to Friends List</NavLink>
-              <FriendsForm
+              <FriendsFormView
                 {...props}
                 newfriend={this.state.newfriend}
                 handleChanges={this.handleChanges}
                 addNewFriend={this.addNewFriend}
-                updatingId={this.state.updatingId}
               />
             </div>
           )}

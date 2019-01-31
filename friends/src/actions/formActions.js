@@ -7,31 +7,18 @@ const UPDATE_FRIEND_START = 'UPDATE_FRIEND_START'
 const UPDATE_FRIEND_SUCCESS = 'UPDATE_FRIEND_SUCCESS'
 const UPDATE_FRIEND_FAILURE = 'UPDATE_FRIEND_FAILURE'
 
-export const addNewFriend = item => dispatch => {
+export const addNewFriend = () => dispatch => {
+    dispatch({ type: ADD_FRIEND_START })
     axios
       .post("http://localhost:5000/friends", this.state.newfriend)
-      .then(res => {
-        this.setState({
-          friends: res.data
-        });
-        this.props.history.push("/");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      .then(res => dispatch({ type: ADD_FRIEND_SUCCESS, payload: res.data }))
+      .catch(err => dispatch({ type: ADD_FRIEND_FAILURE, payload: err }));
 }
 
-export const updateFriend = item => dispatch => {
+export const updateFriend = id => dispatch => {
+    dispatch({ type: UPDATE_FRIEND_START })
     axios
       .put(`http://localhost:5000/friends/${id}`, this.state.newfriend)
-      .then(res => {
-        this.setState({
-          friends: res.data,
-          friend: blankfield,
-          updatingId: ""
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      .then(res => dispatch({ type: UPDATE_FRIEND_SUCCESS, payload: res.data }))
+      .catch(err => dispatch({ type: UPDATE_FRIEND_FAILURE, payload: err }));
 }
