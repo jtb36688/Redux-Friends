@@ -1,43 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getChars } from "../actions/";
-import { CharacterList } from "../components";
-import Loader from "react-loader-spinner";
+import { getFriends, deleteFriend } from "../actions/";
+import FriendsList from "../components/FriendsList"
 
 class FriendsListView extends React.Component {
   componentDidMount() {
     this.props.getFriends();
   }
-
+// be sure to reset the updating index every time you run getFriends from this CDM. this logic in listReducer
   render() {
-    return (
-      <div>
-        <ul>
-          {props.friendsarray.map(({ id, name, age, email }) => {
-            <li key={id}>
-              <ul className="InnerLists">
-                <li> Name: {name} </li>
-                <li> Age: {age} </li>
-                <li> Email: {email} </li>
-              </ul>{" "}
-              <button
-                color="primary"
-                size="sm"
-                onClick={() => props.toggleUpdate(id)}
-              >
-                Update Friend
-              </button>
-              <button
-                color="warning"
-                size="sm"
-                onClick={() => props.deleteFriend(id)}
-              >
-                Delete Friend
-              </button>
-            </li>;
-          })}
-        </ul>
-      </div>
-    );
+    <div className="FriendsListWrapper">
+        <FriendsList 
+        friendsarray={this.props.friendsarray}
+        updateFriend={this.props.routeUpdate}
+        deleteFriend={this.props.deleteFriend}
+        />
+    </div>
   }
 }
+
+const mapStateToProps = state => ({
+    friendsarray: state.listReducer.friends
+})
+
+export default connect(mapStateToProps, { getFriends, updateFriend, deleteFriend })(FriendsListView)

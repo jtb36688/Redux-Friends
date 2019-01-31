@@ -13,7 +13,6 @@ const blankfield = {
 
 class App extends Component {
   state = {
-    friends: [],
     newfriend: blankfield,
     currentlyupdating: ''
   };
@@ -28,22 +27,6 @@ class App extends Component {
         console.log(err);
       });
   }
-
-  cancelUpdate = () => {
-    this.setState(currentState => {
-      return {
-        newfriend: blankfield,
-        currentlyupdating: ''
-      }
-    });
-  };
-
-  toggleUpdate = id => {
-    this.setState({
-      newfriend: this.state.friends.find(friend => friend.id === id),
-      currentlyupdating: id
-    });
-  };
 
   handleChanges = e => {
     e.persist();
@@ -107,23 +90,18 @@ class App extends Component {
           path="/"
           render={props => (
             <div>
-            <NavLink to="/AddNew">Add New Friend...</NavLink>
-            <FriendsList
+            <NavLink to="/modifylist/">Add New Friend...</NavLink>
+            <FriendsListView
               {...props}
-              friendsarray={this.state.friends}
-              deleteFriend={this.deleteFriend}
               newfriend={this.state.newfriend}
               handleChanges={this.handleChanges}
-              updateFriend={this.updateFriend}
-              cancelUpdate={this.cancelUpdate}
-              toggleUpdate={this.toggleUpdate}
-              currentlyupdating={this.state.currentlyupdating}
+              resetUpdating={this.resetUpdating}
             />
             </div>
           )}
         />
         <Route
-          path="/AddNew/"
+          path="/modifylist/"
           render={props => (
             <div>
             <NavLink to="/">Return to Friends List</NavLink>
@@ -132,6 +110,7 @@ class App extends Component {
               newfriend={this.state.newfriend}
               handleChanges={this.handleChanges}
               addNewFriend={this.addNewFriend}
+              indexupdating={this.state.indexupdating}
             />
               </div>
           )}
