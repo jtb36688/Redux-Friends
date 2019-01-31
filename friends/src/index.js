@@ -6,78 +6,14 @@ import { createStore, applyMiddleware} from 'redux';
 import { BrowserRouter as Router, withRouter, Route, NavLink } from "react-router-dom";
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import rootReducer from "./reducers";
 
-const store = createStore(applyMiddleware, thunk)
+const store = createStore(rootReducer, applyMiddleware(logger, thunk))
 
 class App extends Component {
   state = {
     updatingId: ""
   };
-
-  componentDidMount() {
-    axios
-      .get("http://localhost:5000/friends")
-      .then(res => {
-        this.setState({ friends: res.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  handleChanges = e => {
-    e.persist();
-    this.setState(currentState => {
-      return {
-        newfriend: {
-          ...currentState.newfriend,
-          [e.target.name]: e.target.value
-        }
-      };
-    });
-  };
-
-  addNewFriend = e => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/friends", this.state.newfriend)
-      .then(res => {
-        this.setState({
-          friends: res.data
-        });
-        this.props.history.push("/");
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  deleteFriend = id => {
-    axios
-      .delete(`http://localhost:5000/friends/${id}/`)
-      .then(res => {
-        this.setState({
-          friends: res.data
-        });
-      })
-      .catch(err => console.log(err));
-  };
-
-  // updateFriend = (e, id) => {
-  //   e.preventDefault();
-  //   axios
-  //     .put(`http://localhost:5000/friends/${id}`, this.state.newfriend)
-  //     .then(res => {
-  //       this.setState({
-  //         friends: res.data,
-  //         friend: blankfield,
-  //         updatingId: ""
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };
 
   routeUpdate = id => {
     this.setState({

@@ -12,6 +12,14 @@ class FriendsFormView extends React.Component {
   state = {
     newfriend: blankfield
   };
+  componentDidMount() {
+    this.props.updatingId &&
+    this.setState({
+      name: this.props.friendsarray.find(friends => friends.id.toString() === this.props.friendsarray).name,
+      age: this.props.friendsarray.find(friends => friends.id.toString() === this.props.friendsarray).age,
+      height: this.props.friendsarray.find(friends => friends.id.toString() === this.props.friendsarray).height
+    })}
+
 
   handleChanges = e => {
     this.setState(currentState => {

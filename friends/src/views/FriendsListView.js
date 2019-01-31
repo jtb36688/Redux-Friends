@@ -23,4 +23,4 @@ const mapStateToProps = state => ({
     friendsarray: state.listReducer.friends
 })
 
-export default connect(mapStateToProps, { getFriends, updateFriend, deleteFriend })(FriendsListView)
+export default connect(mapStateToProps, { getFriends, deleteFriend })(FriendsListView)
