@@ -19,22 +19,34 @@ import {
 
 const initialState = {
   friends: [],
-  updatingId: ""
+  updatingId: "",
+  isLoading: false
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
+    case GET_FRIENDS_START:
+    return {
+      ...state,
+      isLoading: true
+    }
     case GET_FRIENDS_SUCCESS:
       return {
         ...state,
         friends: action.payload,
-        updateId: ""
+        updateId: "",
+        isLoading: false
       };
-
+      case DELETE_FRIEND_START:
+      return {
+        ...state,
+        isLoading: true
+      }
     case DELETE_FRIEND_SUCCESS:
       return {
         ...state,
-        friends: action.payload
+        friends: action.payload,
+        isLoading: false
       };
 
     case SET_UPDATE:
@@ -42,15 +54,27 @@ function reducer(state = initialState, action) {
         ...state,
         updatingId: action.payload
       };
+      case ADD_FRIEND_START:
+      return {
+        ...state,
+        isLoading: true
+      }
     case ADD_FRIEND_SUCCESS:
       return {
         ...state,
-        friends: action.payload
+        friends: action.payload,
+        isLoading: false
       };
+      case UPDATE_FRIEND_START:
+      return {
+        ...state,
+        isLoading: true
+      }
     case UPDATE_FRIEND_SUCCESS:
       return {
         ...state,
-        friends: action.payload
+        friends: action.payload,
+        isLoading: false
       };
     default:
       return state;
