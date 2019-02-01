@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import {
   BrowserRouter as Router,
@@ -14,7 +14,6 @@ import logger from "redux-logger";
 import rootReducer from "./reducers";
 import FriendsListView from "./views/FriendsListView";
 import FriendsFormView from "./views/FriendsFormView";
-import Loader from "react-loader-spinner";
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
@@ -27,7 +26,6 @@ class App extends React.Component {
           path="/"
           render={props => (
             <div>
-              <NavLink to="/modifylist/">Add New Friend...</NavLink>
               <FriendsListView {...props} />
             </div>
           )}
@@ -36,16 +34,6 @@ class App extends React.Component {
           path="/modifylist/"
           render={props => (
             <div>
-              {this.props.isLoading ? (
-                <Loader
-                  type="Ball-Triangle"
-                  color="#00BFFF"
-                  height="90"
-                  width="60"
-                />
-              ) : (
-                <NavLink to="/">Return to Friends List</NavLink>
-              )}
               <FriendsFormView {...props} />
             </div>
           )}
@@ -57,9 +45,9 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading
-})
+});
 
-const AppWithRouter = connect(mapStateToProps, {})(withRouter(App));
+const AppWithRouter = withRouter(App);
 
 ReactDOM.render(
   <Provider store={store}>

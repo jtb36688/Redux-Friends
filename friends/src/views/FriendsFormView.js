@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { addNewFriend, updateFriend } from "../actions";
 import FriendsForm from "../components/FriendsForm";
+import { NavLink } from "react-router-dom"
+
 
 const blankfield = {
   name: "",
@@ -15,6 +17,7 @@ class FriendsFormView extends React.Component {
   };
 
   componentDidMount() {
+    console.log('forms mounted', this.props.updatingId)
     this.props.updatingId
       ? this.setState({
           newfriend: {
@@ -45,6 +48,8 @@ class FriendsFormView extends React.Component {
 
   render() {
     return (
+      <div>
+      <NavLink to="/">Return to Friends List</NavLink>
       <FriendsForm
         friendsarray={this.props.friendsarray}
         updateFriend={this.props.updateFriend}
@@ -53,6 +58,7 @@ class FriendsFormView extends React.Component {
         updatingId={this.props.updatingId}
         newfriend={this.state.newfriend}
       />
+      </div>
     );
   }
 }

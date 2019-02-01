@@ -34,7 +34,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         friends: action.payload,
-        updateId: "",
+        updatingId: "",
         isLoading: false
       };
       case DELETE_FRIEND_START:
