@@ -18,23 +18,23 @@ import {
 // tried to use two seperate reducers, but both views use like state, so it didn't seem to work.
 
 const initialState = {
-    friends: [],
-    updatingId: ""
-  };
+  friends: [],
+  updatingId: ""
+};
 
-const reducer = (state = initialState, action) => {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_FRIENDS_SUCCESS:
       return {
         ...state,
         friends: action.payload,
-        updateId: '',
+        updateId: ""
       };
 
     case DELETE_FRIEND_SUCCESS:
       return {
         ...state,
-        friend: action.payload
+        friends: action.payload
       };
 
     case SET_UPDATE:
@@ -52,5 +52,9 @@ const reducer = (state = initialState, action) => {
         ...state,
         friends: action.payload
       };
+    default:
+      return state;
   }
-};
+}
+
+export default reducer;

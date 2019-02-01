@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 const FriendsForm = props => {
   const renderAge = () => {
@@ -13,50 +14,50 @@ const FriendsForm = props => {
     return tagsarray;
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e, data, id) => {
     e.preventDefault();
-    if (!Object.keys(props.newfriend).includes("")) {
+    if (!Object.values(props.newfriend).includes("")) {
       if (props.updatingId) {
-        props.addNewFriend();
+        props.updateFriend(data, id);
         props.history.push("/");
       } else {
-        props.updateFriend();
+        props.addNewFriend(data);
         props.history.push("/");
       }
     } else {
-      null;
+      return null;
     }
   };
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
+    <form onSubmit={e => handleSubmit(e, props.newfriend, props.updatingId)}>
       <input
         value={props.newfriend.name}
         type="text"
         name="name"
         placeholder="Friend Name.."
-        onChange={props.handleChanges}
+        onChange={(e) => props.handleChanges(e)}
       />
       <select
         name="age"
         value={props.newfriend.age}
-        onChange={props.handleChanges}
+        onChange={(e) => props.handleChanges(e)}
       >
         <option value="">Friend Age..</option>
         {renderAge()}
       </select>
       <input
         value={props.newfriend.email}
-        type="text"
+        type="email"
         name="email"
         placeholder="Friend Email.."
-        onChange={props.handleChanges}
+        onChange={(e) => props.handleChanges(e)}
       />
       <button color="primary" type="submit">
-        Add New Friend
+        {props.updatingId ? 'Update Friend' : 'Add New Friend'}
       </button>
     </form>
   );
 };
 
-export default FriendsForm;
+export default withRouter(FriendsForm);

@@ -1,19 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware} from 'redux';
-import { BrowserRouter as Router, withRouter, Route, NavLink } from "react-router-dom";
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import {
+  BrowserRouter as Router,
+  withRouter,
+  Route,
+  NavLink
+} from "react-router-dom";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
 import rootReducer from "./reducers";
+import FriendsListView from "./views/FriendsListView";
+import FriendsFormView from "./views/FriendsFormView";
 
-const store = createStore(rootReducer, applyMiddleware(logger, thunk))
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
-class App extends Component {
-
-
-
+class App extends React.Component {
   render() {
     return (
       <div className="AppContainer">
@@ -25,8 +29,6 @@ class App extends Component {
               <NavLink to="/modifylist/">Add New Friend...</NavLink>
               <FriendsListView
                 {...props}
-                newfriend={this.state.newfriend}
-                handleChanges={this.handleChanges}
               />
             </div>
           )}
@@ -38,9 +40,6 @@ class App extends Component {
               <NavLink to="/">Return to Friends List</NavLink>
               <FriendsFormView
                 {...props}
-                newfriend={this.state.newfriend}
-                handleChanges={this.handleChanges}
-                addNewFriend={this.addNewFriend}
               />
             </div>
           )}
@@ -54,9 +53,9 @@ const AppWithRouter = withRouter(App);
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
-    <AppWithRouter />
-  </Router>
+    <Router>
+      <AppWithRouter />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
